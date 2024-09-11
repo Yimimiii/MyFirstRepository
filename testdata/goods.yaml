@@ -1,0 +1,88 @@
+#注册用例 url和请求方法 请求头等都是一样的，只有请求参数和预期结果实际结果不一样，相同的部分可以写在一起，然后使用锚点在其他的用例中直接引用;不需要这样写
+- A01_title: 商品分类信息01
+  A02_method: get
+  A03_url: api/goods/category
+  A04_param:
+    application: app
+    application_client_type: weixin
+  A05_header: null
+  A06_data: null
+  A07_status_code: 200
+  A08_expectmsg: success
+  A09_actualmsg: null
+  A10_jsonpath: VAR_MSG;VAR_category_id
+  A11_pathexpr: $..msg;$.data.category[0].id
+  A12_regular: null
+  A13_regularEXPR: null
+  A14_sqlvar: null
+  A15_sql: null
+  A16_sqlexpectres: null
+  A17_sqlactualres: null
+- A01_title: 根据商品分类id去搜索商品02
+  A02_method: post
+  A03_url: api/search/index
+  A04_param:
+    application: app
+    application_client_type: weixin
+    token: 来自于登录接口
+  A05_header:
+    Content-Type: application/x-www-form-urlencoded
+  A06_data:
+    page: 1
+    category_id: ${alljson_var['VAR_category_id']}$
+    brand_id: 0
+  A07_status_code: 200
+  A08_expectmsg: success
+  A09_actualmsg: null
+  A10_jsonpath: VAR_MSG;VAR_ID;VAR_GOODID
+  A11_pathexpr: $..msg;$..id;$..data.data[2].id
+  A12_regular: null
+  A13_regularEXPR: null
+  A14_sqlvar: null
+  A15_sql: null
+  A16_sqlexpectres: null
+  A17_sqlactualres: null
+- A01_title: 根据商品id去查看商品详情03
+  A02_method: post
+  A03_url: api/goods/detail
+  A04_param:
+    application: app
+    application_client_type: weixin
+    token: 来自于登录接口
+  A05_header:
+    Content-Type: application/x-www-form-urlencoded
+  A06_data:
+    goods_id: ${alljson_var['VAR_GOODID']}$
+  A07_status_code: 200
+  A08_expectmsg: success
+  A09_actualmsg: null
+  A10_jsonpath: VAR_MSG;VAR_GOODSID
+  A11_pathexpr: $..msg;$.data.goods.id
+  A12_regular: null
+  A13_regularEXPR: null
+  A14_sqlvar: null
+  A15_sql: null
+  A16_sqlexpectres: null
+  A17_sqlactualres: null
+- A01_title: 商品收藏04（同样的商品，第一次请求收藏，第二次请求，取消收藏）
+  A02_method: post
+  A03_url: api/goods/favor
+  A04_param:
+    application: app
+    application_client_type: weixin
+    token: 来自于登录接口
+  A05_header:
+    Content-Type: application/x-www-form-urlencoded  #这个接口加上文档上的application/json请求头会报错，可能是文档写错了
+  A06_data:
+    id: ${alljson_var['VAR_GOODSID']}$
+  A07_status_code: 200
+  A08_expectmsg: 收藏成功/取消成功
+  A09_actualmsg: null
+  A10_jsonpath: VAR_MSG
+  A11_pathexpr: $..msg
+  A12_regular: null
+  A13_regularEXPR: null
+  A14_sqlvar: null
+  A15_sql: null
+  A16_sqlexpectres: null
+  A17_sqlactualres: null

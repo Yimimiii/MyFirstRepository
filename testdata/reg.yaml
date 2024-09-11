@@ -1,0 +1,67 @@
+#注册用例 url和请求方法 请求头等都是一样的，只有请求参数和预期结果实际结果不一样，相同的部分可以写在一起，然后使用锚点在其他的用例中直接引用;不需要这样写
+- A01_title: 注册接口01
+  A02_method: post
+  A03_url: api/user/reg
+  A04_param:
+    application: app
+  A05_header:
+    Content-Type: application/x-www-form-urlencoded
+  A06_data:
+    type: username
+    accounts: hu80
+    pwd: 123456
+  A07_status_code: 200
+  A08_expectmsg: 注册成功
+  A09_actualmsg: null
+  A10_jsonpath: VAR_TOKEN;VAR_MSG;VAR_UNAME;VAR_UID
+  A11_pathexpr: $..token;$..msg;$..username;$..id
+  A12_regular: TOKEN
+  A13_regularEXPR: r'([a-fA-F0-9]{32})'
+  A14_sqlvar: ${alljson_var['VAR_UNAME']}$;${alljson_var['VAR_UID']}$
+  A15_sql: select token from sxo_user where username ='{0}' AND id = {1}
+  A16_sqlexpectres: null
+  A17_sqlactualres: null
+- A01_title: 注册接口02
+  A02_method: post
+  A03_url: api/user/reg
+  A04_param:
+    application: app
+  A05_header:
+    Content-Type: application/x-www-form-urlencoded
+  A06_data:
+    type: username
+    accounts: hu81
+    pwd: 123456
+  A07_status_code: 200
+  A08_expectmsg: 注册成功
+  A09_actualres: null
+  A10_jsonpath: VAR_TOKEN;VAR_MSG
+  A11_pathexpr: $..token;$..msg
+  A12_regular: null
+  A13_regularEXPR: null
+  A14_sqlvar: null
+  A15_sql: null
+  A16_sqlexpectres: null
+  A17_sqlactualres: null
+- A01_title: 注册接口03
+  A02_method: post
+  A03_url: api/user/reg
+  A04_param:
+    application: app
+  A05_header:
+    Content-Type: application/x-www-form-urlencoded
+  A06_data:
+    type: username
+    accounts: hu82
+    pwd: 123456
+  A07_status_code: 200
+  A08_expectmsg: 注册成功
+  A09_actualres: null
+  A10_jsonpath: VAR_TOKEN;VAR_MSG
+  A11_pathexpr: $..token;$..msg
+  A12_regular: null
+  A13_regularEXPR: null
+  A14_sqlvar: null
+  A15_sql: null
+  A16_sqlexpectres: null
+  A17_sqlactualres: null

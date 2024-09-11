@@ -1,0 +1,145 @@
+#如果按照这个用例执行的话，地址会先新增然后修改然后删除，因为这三个公用了同一个id，所以执行完后也不会有什么变化
+- A01_title: 查看地址列表01
+  A02_method: get
+  A03_url: api/useraddress/index
+  A04_param:
+    application: app
+    application_client_type: weixin
+    token: 来自fixture
+  A05_header: null
+  A06_data: null
+  A07_status_code: 200
+  A08_expectmsg: success
+  A09_actualmsg: null
+  A10_jsonpath: VAR_ADDRESSID;VAR_PID
+  A11_pathexpr: $.data.data[0].id;$.data.data[0].province
+  A12_regular: null
+  A13_regularEXPR: null
+  A14_sqlvar: null
+  A15_sql: null
+  A16_sqlexpectres: null
+  A17_sqlactualres: null
+- A01_title: 新增地址02
+  A02_method: post
+  A03_url: api/useraddress/save
+  A04_param:
+    application: app
+    application_client_type: weixin
+    token: 来自于登录接口
+  A05_header:
+    content-type: application/x-www-form-urlencoded
+  A06_data:
+    alias: 测试新增333
+    name: 用户2
+    tel: 16325323423
+    province: 6
+    city: 23
+    county: 6
+    address: 武汉大学
+  A07_status_code: 200
+  A08_expectmsg: 新增成功
+  A09_actualmsg: null
+  A10_jsonpath: null
+  A11_pathexpr: null
+  A12_regular: null
+  A13_regularEXPR: null
+  A14_sqlvar: null
+  A15_sql: null
+  A16_sqlexpectres: null
+  A17_sqlactualres: null
+- A01_title: 根据地址id查看某个地址的详情03
+  A02_method: post
+  A03_url: api/useraddress/detail
+  A04_param:
+    application: app
+    application_client_type: weixin
+    token: 来自于登录接口
+  A05_header:
+    Content-Type: application/x-www-form-urlencoded
+  A06_data:
+    id: ${alljson_var['VAR_ADDRESSID']}$
+  A07_status_code: 200
+  A08_expectmsg: success
+  A09_actualmsg: null
+  A10_jsonpath: VAR_MSG;VAR_ID
+  A11_pathexpr: $..msg;$..id
+  A12_regular: null
+  A13_regularEXPR: null
+  A14_sqlvar: null
+  A15_sql: null
+  A16_sqlexpectres: null
+  A17_sqlactualres: null
+- A01_title: 根据父级id显示省市区？04
+  A02_method: post
+  A03_url: api/region/index
+  A04_param:
+    application: app
+    application_client_type: weixin
+    token: 来自于登录接口
+  A05_header:
+    Content-Type: application/x-www-form-urlencoded
+  A06_data:
+    pid: ${alljson_var['VAR_PID']}$
+  A07_status_code: 200
+  A08_expectmsg: success
+  A09_actualmsg: null
+  A10_jsonpath: null
+  A11_pathexpr: null
+  A12_regular: null
+  A13_regularEXPR: null
+  A14_sqlvar: null
+  A15_sql: null
+  A16_sqlexpectres: null
+  A17_sqlactualres: null
+- A01_title: 修改地址05
+  A02_method: put
+  A03_url: api/useraddress/save
+  A04_param:
+    application: app
+    application_client_type: weixin
+    token: 来自于登录接口
+  A05_header:
+    content-type: application/x-www-form-urlencoded
+  A06_data:
+    alias: 11修改昵称22
+    name: 修改用户2
+    tel: 16125323423
+    province: 2
+    city: 4
+    county: 6
+    address: 修改1111湘潭大学
+    is_default: 1
+    id: ${alljson_var['VAR_ADDRESSID']}$
+  A07_status_code: 200
+  A08_expectmsg: success
+  A09_actualmsg: null
+  A10_jsonpath: null
+  A11_pathexpr: null
+  A12_regular: null
+  A13_regularEXPR: null
+  A14_sqlvar: null
+  A15_sql: null
+  A16_sqlexpectres: null
+  A17_sqlactualres: null
+- A01_title: 删除地址06
+  A02_method: delete
+  A03_url: api/useraddress/delete
+  A04_param:
+    application: app
+    application_client_type: weixin
+    token: 来自于登录接口
+  A05_header:
+    content-type: application/x-www-form-urlencoded
+  A06_data:
+    id: ${alljson_var['VAR_ADDRESSID']}$
+  A07_status_code: 200
+  A08_expectmsg: 删除成功
+  A09_actualmsg: null
+  A10_jsonpath: null
+  A11_pathexpr: null
+  A12_regular: null
+  A13_regularEXPR: null
+  A14_sqlvar: null
+  A15_sql: null
+  A16_sqlexpectres: null
+  A17_sqlactualres: null

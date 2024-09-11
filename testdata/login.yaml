@@ -1,0 +1,22 @@
+- A01_title: 登录接口01
+  A02_method: post
+  A03_url: api/user/login
+  A04_param:
+    application: app
+  A05_header:
+    Content-Type: application/x-www-form-urlencoded
+  A06_data:
+    type: username
+    accounts: hu68
+    pwd: 123456
+  A07_status_code: 200
+  A08_expectmsg: 登录成功
+  A09_actualmsg: null
+  A10_jsonpath: VAR_TOKEN;VAR_MSG;VAR_UNAME;VAR_UID
+  A11_pathexpr: $..token;$..msg;$..username;$..id
+  A12_regular: TOKEN
+  A13_regularEXPR: r'([a-fA-F0-9]{32})'
+  A14_sqlvar: ${alljson_var['VAR_UNAME']}$;${alljson_var['VAR_UID']}$
+  A15_sql: select token from sxo_user where username ='{0}' AND id = {1}
+  A16_sqlexpectres: null
+  A17_sqlactualres: null

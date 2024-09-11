@@ -1,0 +1,90 @@
+#注册用例 url和请求方法 请求头等都是一样的，只有请求参数和预期结果实际结果不一样，相同的部分可以写在一起，然后使用锚点在其他的用例中直接引用;不需要这样写
+- A01_title: 加入购物车01
+  A02_method: post
+  A03_url: api/cart/save
+  A04_param:
+    application: app
+    application_client_type: weixin
+    token: 来自于登录接口
+  A05_header:
+    content-type: application/x-www-form-urlencoded  #接口文档里的请求头错误
+  A06_data:            #拓展一个点：批量加入购物车
+    goods_id: 12          # 可以去之前的接口中取，也可以取收藏里取
+    stock: 2   #数量随便写
+  A07_status_code: 200
+  A08_expectmsg: 加入成功
+  A09_actualmsg: null
+  A10_jsonpath: null
+  A11_pathexpr: null
+  A12_regular: null
+  A13_regularEXPR: null
+  A14_sqlvar: null
+  A15_sql: null
+  A16_sqlexpectres: null
+  A17_sqlactualres: null
+- A01_title: 查看购物车02
+  A02_method: get
+  A03_url: api/cart/index
+  A04_param:
+    application: app
+    application_client_type: weixin
+    token: 来自于登录接口
+  A05_header: null
+  A06_data: null
+  A07_status_code: 200
+  A08_expectmsg: success
+  A09_actualmsg: null
+  A10_jsonpath: VAR_MSG;VAR_ID;VAR_GOODSID
+  A11_pathexpr: $..msg;$.data.data[0].id;$.data.data[0].goods_id
+  A12_regular: null
+  A13_regularEXPR: null
+  A14_sqlvar: null
+  A15_sql: null
+  A16_sqlexpectres: null
+  A17_sqlactualres: null
+- A01_title: 修改购物车中某些商品的数量03
+  A02_method: post
+  A03_url: api/cart/stock
+  A04_param:
+    application: app
+    application_client_type: weixin
+    token: 来自于登录接口
+  A05_header:
+    Content-Type: application/x-www-form-urlencoded
+  A06_data:
+    id: ${alljson_var['VAR_ID']}$    #购物车id 来自于上一个接口中随机一个商品id
+    goods_id: ${alljson_var['VAR_GOODSID']}$   #要修改的那个商品的id
+    stock: 5 #修改成多少 一个数字
+  A07_status_code: 200
+  A08_expectmsg: 更新成功
+  A09_actualmsg: null
+  A10_jsonpath: null
+  A11_pathexpr: null
+  A12_regular: null
+  A13_regularEXPR: null
+  A14_sqlvar: null
+  A15_sql: null
+  A16_sqlexpectres: null
+  A17_sqlactualres: null
+- A01_title: 移除购物车04（删除整个购物车，而不是只删除购物车里的某些商品）
+  A02_method: post
+  A03_url: api/cart/delete
+  A04_param:
+    application: app
+    application_client_type: weixin
+    token: 来自于登录接口
+  A05_header:
+    Content-Type: application/x-www-form-urlencoded
+  A06_data:
+    id: ${alljson_var['VAR_ID']}$
+  A07_status_code: 200
+  A08_expectmsg: 删除成功
+  A09_actualmsg: null
+  A10_jsonpath: null
+  A11_pathexpr: null
+  A12_regular: null
+  A13_regularEXPR: null
+  A14_sqlvar: null
+  A15_sql: null
+  A16_sqlexpectres: null
+  A17_sqlactualres: null

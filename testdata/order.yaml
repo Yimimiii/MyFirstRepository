@@ -1,0 +1,177 @@
+- A01_title: 新增订单01
+  A02_method: post
+  A03_url: api/buy/add
+  A04_param:
+    application: app
+    application_client_type: weixin
+    token: 来自fixture
+  A05_header:
+    content-type: application/x-www-form-urlencoded
+  A06_data:  #拓展：想要一笔订单中包含好几种商品
+    buy_type: goods  #商品类型，归属哪一类
+    goods_id: 2   #商品id
+    stock: 3   #商品数量
+    spec: [{"type":"套餐","value":"套餐一"},{"type":"颜色","value":"金色"},{"type":"容量","value":"64G"}]  #商品规格参数比如多大内存什么颜色等
+    address_id: 12184
+    payment_id: 2
+    site_model: 0
+    is_points: 0
+    user_note:
+  A07_status_code: 200
+  A08_expectmsg: 提交成功
+  A09_actualmsg: null
+  A10_jsonpath: null
+  A11_pathexpr: null
+  A12_regular: null
+  A13_regularEXPR: null
+  A14_sqlvar: null
+  A15_sql: null
+  A16_sqlexpectres: null
+  A17_sqlactualres: null
+- A01_title: 根据页码和订单状态显示全部符合条件的订单02
+  A02_method: post
+  A03_url: api/order/index
+  A04_param:
+    application: app
+    application_client_type: weixin
+    token: 来自于登录接口
+  A05_header:
+    content-type: application/json
+  A06_data:
+    page: 1
+    status: 3  #3表示待付款状态
+  A07_status_code: 200
+  A08_expectmsg: success
+  A09_actualmsg: null
+  A10_jsonpath: VAR_ORDERid
+  A11_pathexpr: $.data.data[0].id   #下标为1的订单号
+  A12_regular: null
+  A13_regularEXPR: null
+  A14_sqlvar: null
+  A15_sql: null
+  A16_sqlexpectres: null
+  A17_sqlactualres: null
+- A01_title: 根据订单id查看某笔订单的详情03
+  A02_method: post
+  A03_url: api/order/detail
+  A04_param:
+    application: app
+    application_client_type: weixin
+    token: 来自于登录接口
+  A05_header:
+    Content-Type: application/x-www-form-urlencoded
+  A06_data:
+    id: ${alljson_var['VAR_ORDERid']}$
+  A07_status_code: 200
+  A08_expectmsg: success
+  A09_actualmsg: null
+  A10_jsonpath: null
+  A11_pathexpr: null
+  A12_regular: null
+  A13_regularEXPR: null
+  A14_sqlvar: null
+  A15_sql: null
+  A16_sqlexpectres: null
+  A17_sqlactualres: null
+- A01_title: 根据订单id取消这笔订单（修改状态为05已取消）04
+  A02_method: post
+  A03_url: api/order/cancel
+  A04_param:
+    application: app
+    application_client_type: weixin
+    token: 来自于登录接口
+  A05_header:
+    Content-Type: application/x-www-form-urlencoded
+  A06_data:
+    id: ${alljson_var['VAR_ORDERid']}$
+  A07_status_code: 200
+  A08_expectmsg: 取消成功
+  A09_actualmsg: null
+  A10_jsonpath: null
+  A11_pathexpr: null
+  A12_regular: null
+  A13_regularEXPR: null
+  A14_sqlvar: null
+  A15_sql: null
+  A16_sqlexpectres: null
+  A17_sqlactualres: null
+#还有三个重要接口：
+#详情页跳转到订单提交页面
+#购物车跳转提交订单
+#订单跳转支付请求
+#- A01_title: 详情页跳转到订单提交页面
+#  A02_method: post
+#  A03_url: api/buy/index
+#  A04_param:
+#    application: app
+#    application_client_type: weixin
+#    token: 来自fixture
+#  A05_header:
+#    content-type: application/x-www-form-urlencoded
+#  A06_data:  #拓展：想要一笔订单中包含好几种商品
+#    buy_type: buy_type  #商品类型，归属哪一类
+#    goods_id: 6   #商品id
+#    stock: 1   #商品数量
+#    spec: []  #商品规格参数比如多大内存什么颜色等
+#    address_id: null
+#    payment_id: 0
+#    site_model: 0
+#    is_points: 0
+#  A07_status_code: 200
+#  A08_expectmsg: 提交成功
+#  A09_actualmsg: null
+#  A10_jsonpath: null
+#  A11_pathexpr: null
+#  A12_regular: null
+#  A13_regularEXPR: null
+#  A14_sqlvar: null
+#  A15_sql: null
+#  A16_sqlexpectres: null
+#  A17_sqlactualres: null
+#- A01_title: 购物车跳转提交订单
+#  A02_method: post
+#  A03_url: api/cart/stock
+#  A04_param:
+#    application: app
+#    application_client_type: weixin
+#    token: 来自fixture
+#  A05_header:
+#    content-type: application/x-www-form-urlencoded
+#  A06_data:  #拓展：想要一笔订单中包含好几种商品
+#    id: 24832  #购物车id
+#    goods_id: 6   #商品id
+#    stock: 1   #商品数量
+#  A07_status_code: 200
+#  A08_expectmsg: 提交成功
+#  A09_actualmsg: null
+#  A10_jsonpath: null
+#  A11_pathexpr: null
+#  A12_regular: null
+#  A13_regularEXPR: null
+#  A14_sqlvar: null
+#  A15_sql: null
+#  A16_sqlexpectres: null
+#  A17_sqlactualres: null
+#- A01_title: 订单跳转支付请求
+#  A02_method: post
+#  A03_url: api/order/pay
+#  A04_param:
+#    application: app
+#    application_client_type: weixin
+#    token: 来自fixture
+#  A05_header:
+#    content-type: application/x-www-form-urlencoded
+#  A06_data:  #拓展：想要一笔订单中包含好几种商品
+#    ids: ${alljson_var['VAR_ORDERid']}$  #订单id
+#    payment_id: 0   #支付方式
+#  A07_status_code: 200
+#  A08_expectmsg: 提交成功
+#  A09_actualmsg: null
+#  A10_jsonpath: null
+#  A11_pathexpr: null
+#  A12_regular: null
+#  A13_regularEXPR: null
+#  A14_sqlvar: null
+#  A15_sql: null
+#  A16_sqlexpectres: null
+#  A17_sqlactualres: null
